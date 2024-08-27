@@ -9,6 +9,14 @@ export const userSchema = Joi.object({
     "string.max": "Name should have a maximum length of 30 characters",
     "any.required": "Name is a required field",
   }),
+  phone: Joi.string().pattern(/^[0-9]{10}$/).required().messages({
+    "string.base": "Phone should be a string of digits.",
+    "string.empty": "Phone cannot be an empty field.",
+    "string.pattern.base": "Phone should be exactly 10 digits.",
+    "any.required": "Phone is a required field.",
+  }),
+
+
 
   email: Joi.string().email().required().messages({
     "string.base": "Email should be a type of string",
@@ -43,6 +51,10 @@ export const userLoginSchema = Joi.object({
   }),
 });
 export const incomeSchema = Joi.object({
+  userId: Joi.number().required().messages({
+    "number.base": "Price should be a number",
+    "any.required": "Price is a required field",
+  }),
   price: Joi.number().required().messages({
     "number.base": "Price should be a number",
     "any.required": "Price is a required field",

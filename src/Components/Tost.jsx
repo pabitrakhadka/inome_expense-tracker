@@ -1,26 +1,25 @@
-import React from "react";
-import toast, { Toaster } from "react-hot-toast";
+import React from 'react';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
-// Function to create a toast with custom styling
-const showToast = (message, status) => {
-  const toastStyle =
-    status === "success"
-      ? { background: "green", color: "white" }
-      : { background: "red", color: "white" };
+const Tost = () => {
+    return (
+        <div>
+            <ToastContainer
+                position="top-right"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                theme="light"
 
-  toast(message, {
-    style: toastStyle,
-  });
+            />
+        </div>
+    );
 };
 
-const Toast = ({ message, status }) => {
-  React.useEffect(() => {
-    if (message) {
-      showToast(message, status);
-    }
-  }, [message, status]);
 
-  return <Toaster position="top-right" reverseOrder={false} />;
-};
-
-export default Toast;
+export default Tost;

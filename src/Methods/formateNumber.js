@@ -1,3 +1,5 @@
 export const formatNumber = (number) => {
-    return new Intl.NumberFormat('ne-NP', { style: 'currency', currency: 'NPR' }).format(number);
+    const formatted = new Intl.NumberFormat('en-IN').format(number);
+    const numberFormatted = "NPR." + formatted;
+    return numberFormatted;
 }

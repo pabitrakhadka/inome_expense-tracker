@@ -24,17 +24,19 @@ export default async function handler(req, res) {
         console.log("Validation error", error);
         return res.status(400).json({ status: false, message: error.message });
       } else {
-        const { userId = 1, price, types, description } = value;
+        const { userId, price, types, description } = value;
         let saveResult;
         if (types === "income") {
           const user = await prisma.balance.findFirst({
             where: {
-              userId: 1
+              userId: userId
             }, select:
             {
-              balance: true
+              balance: true,
+              userId: true,
             }
           });
+
           if (!user) {
             return res.status(400).json({ status: false, message: "User not fouond" })
           } else {
@@ -43,13 +45,12 @@ export default async function handler(req, res) {
 
             const updateUser = await prisma.balance.update({
               where: {
-                id: 1,
+                userId: userId,
               }, data: {
                 balance: updatedBalance
               }
             });
 
-            console.log('Updated User:', updateUser);
             if (updateUser) {
               saveResult = await prisma.income.create({
                 data: {
@@ -78,9 +79,10 @@ export default async function handler(req, res) {
         if (types == "expense") {
           const user = await prisma.balance.findFirst({
             where: {
-              userId: 1,
+              userId: userId,
             }, select: {
-              balance: true
+              balance: true,
+              userId: true
             }
           });
 
@@ -90,7 +92,7 @@ export default async function handler(req, res) {
             const updatedBalance = user.balance - price;
             const updateUser = await prisma.balance.update({
               where: {
-                id: 1,
+                userId: user.userId
               }, data: {
                 balance: updatedBalance
               }

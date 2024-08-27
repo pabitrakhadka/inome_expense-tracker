@@ -1,7 +1,7 @@
 import Head from "next/head";
-
+import { tostStyle } from "@/Methods/tost.js";
 import Layout from "@/Components/layout.jsx";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
@@ -12,13 +12,18 @@ import InputField from "@/Components/InputField";
 import ButtonCom from "@/Components/ButtonCom";
 import { BasicButton } from "@/Components/BasicButton";
 import server from "@/Methods/Server";
-import Toast from "@/Components/Tost";
+import Tost from "@/Components/Tost.jsx";
 import { ArrowCircleUp2 } from "iconsax-react";
 import { ArrowCircleDown2 } from "iconsax-react";
 
 import { colors } from '../Methods/colors.js';
 import { formatNumber } from "@/Methods/formateNumber.js";
 import { nepaliDateConveter } from "@/Methods/nepaliDate.js";
+
+import { toast } from 'react-toastify';
+import { useRouter } from "next/navigation.js";
+
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -32,18 +37,19 @@ const style = {
 };
 
 export default function Home() {
-  const [toastOpen, setToastOpen] = useState(false);
-  const [toastMessage, setToastMessage] = useState("");
+  const [TostOpen, setTostOpen] = useState(false);
+  const [TostMessage, setTostMessage] = useState("");
   const [formType, setFormType] = useState("");
   const [open, setOpen] = useState(false);
   const [transaction, setTransactino] = useState([]);
-
+  const router = useRouter();
   const handleOpen = (type) => {
     setFormType(type);
     setOpen(true);
   };
   const handleClose = () => setOpen(false);
   const [addIncome, setIncome] = useState({
+    userId: "3",
     price: "",
     description: "",
   });
@@ -58,7 +64,9 @@ export default function Home() {
   const handelSubmit = async () => {
     // Log form type
     try {
+
       const data = {
+        userId: parseInt(addIncome.userId),
         price: parseFloat(addIncome.price),
         types: formType,
         description: addIncome.description,
@@ -67,13 +75,14 @@ export default function Home() {
       const response = await server.post(`api/income`, data);
       if (response.status === 200) {
         setOpen(false);
-        <Toast message={`${response.data.message}`} status="success" />;
+        toast.success(`${response.data.message}`);
+        router.push("/");
       } else {
-        <Toast message={`${response.data.message}`} status="error" />;
+        toast.error(`${response.data.message}`);
         console.log(message);
       }
     } catch (error) {
-      <Toast message={`${error}`} status="error" />;
+      toast.error(error);
       console.log("error", error);
     }
   };
@@ -89,7 +98,7 @@ export default function Home() {
   });
   const fetchCount = async () => {
     try {
-      const res = await server.get("/api/count?count=incomeexp");
+      const res = await server.get("/api/count?count=incomeexp&userId=3");
       if (res.status === 200) {
         setCountData(res.data.data);
         console.log("res=", res.data.data);
@@ -215,7 +224,7 @@ export default function Home() {
                       </div>
 
                       <div>
-                        <h3>{formatNumber(countData.totalExpense)}</h3>
+                        <h3>{formatNumber(countData.totalIncome)}</h3>
                       </div>
                     </div>
                   </div>
@@ -300,6 +309,8 @@ export default function Home() {
         );
     }
   };
+
+
   return (
     <>
       <Head>
@@ -309,7 +320,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <>
-
+        <Tost />
         <Layout>
 
           <div className="custom_card">
@@ -317,7 +328,6 @@ export default function Home() {
               <div className="custome_card_top">
                 <p className="">Total Balance</p>
                 <h1> {formatNumber(countData.totalBalance)}</h1>
-
               </div>
               <div className="card_buttom">
                 <div className="card_left">
@@ -332,7 +342,7 @@ export default function Home() {
                     </div>
 
                     <div>
-                      <h3>{formatNumber(countData.totalExpense)}</h3>
+                      <h3>{formatNumber(countData.totalIncome)}</h3>
                     </div>
                   </div>
                 </div>
@@ -356,6 +366,7 @@ export default function Home() {
           </div>
 
           <div className="buttons">
+
             <BasicButton
               onClick={() => handleOpen("income")}
               variant="outlined"

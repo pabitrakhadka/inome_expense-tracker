@@ -3,11 +3,12 @@ import prisma from "../db/db.config";
 export default async function handler(req, res) {
     try {
         if (req.method === "GET") {
-            const { count } = req.query;
+            const { count, userId } = req.query;
+
             if (count === "incomeexp") {
                 const countIncome = await prisma.income.findMany({
                     where: {
-                        userId: 1,
+                        userId: parseInt(userId),
                         types: "income"
                     }, select: {
                         price: true,
@@ -15,8 +16,7 @@ export default async function handler(req, res) {
                 });
                 const countBalance = await prisma.balance.findMany({
                     where: {
-                        userId: 1,
-
+                        userId: parseInt(userId),
                     }, select: {
                         balance: true
                     }
@@ -24,16 +24,16 @@ export default async function handler(req, res) {
 
                 const countExpense = await prisma.income.findMany({
                     where: {
-                        userId: 1,
+                        userId: parseInt(userId),
                         types: "expense"
                     }, select: {
                         price: true,
                     }
                 });
-                
+                console.log("count income balance", countIncome);
                 const totalBalance = countBalance.reduce((sum, item) => {
                     return sum + item.balance;
-                },0);
+                }, 0);
                 const totalIncome = countIncome.reduce((sum, item) => {
                     return sum + item.price;
                 }, 0);

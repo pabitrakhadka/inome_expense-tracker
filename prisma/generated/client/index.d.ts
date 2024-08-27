@@ -5095,15 +5095,15 @@ export namespace Prisma {
 
   export type balanceWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    userId?: number
     AND?: balanceWhereInput | balanceWhereInput[]
     OR?: balanceWhereInput[]
     NOT?: balanceWhereInput | balanceWhereInput[]
-    userId?: IntFilter<"balance"> | number
     balance?: FloatFilter<"balance"> | number
     createdAt?: DateTimeFilter<"balance"> | Date | string
     updatedAt?: DateTimeFilter<"balance"> | Date | string
     user?: XOR<UserRelationFilter, userWhereInput>
-  }, "id">
+  }, "id" | "userId">
 
   export type balanceOrderByWithAggregationInput = {
     id?: SortOrder

@@ -1,4 +1,4 @@
-import prisma from "../../../db/db.config.js";
+import prisma from "../db/db.config.js";
 import { userSchema, userLoginSchema } from "../validation/index.js";
 
 export default async function handler(req, res) {
@@ -15,12 +15,14 @@ export default async function handler(req, res) {
           return res.status(400).json({ message: error.message });
         } else {
           // Check if the user exists
+
           const checkUser = await prisma.user.findFirst({
             where: {
               email: email,
               password: password, // You should consider hashing passwords
             },
           });
+
 
           if (checkUser) {
             return res.status(200).json({
@@ -51,6 +53,8 @@ export default async function handler(req, res) {
 
         if (!checkUser) {
           // Create a new user
+
+
           const saveUserData = await prisma.user.create({
             data: {
               name: name,
@@ -60,10 +64,17 @@ export default async function handler(req, res) {
             },
           });
 
+          const updateBalance = await prisma.balance.create({
+            data: {
+              userId: saveUserData.id,
+              balance: 0
+            }
+          });
+
           if (saveUserData) {
             return res
               .status(200)
-              .json({ message: "Registration Successful", data: value });
+              .json({ message: "Registration Successful", data: { value, updateBalance } });
           } else {
             return res
               .status(401)
