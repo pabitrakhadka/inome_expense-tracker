@@ -51,6 +51,8 @@ model user {
   phone    String?
   password String
   createAt DateTime  @default(now())
+  active   Boolean   @default(true)
+  token    String?
   balance  balance[]
   expense  expense[]
   income   income[]

@@ -3991,6 +3991,8 @@ export namespace Prisma {
     phone: string | null
     password: string | null
     createAt: Date | null
+    active: boolean | null
+    token: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -4000,6 +4002,8 @@ export namespace Prisma {
     phone: string | null
     password: string | null
     createAt: Date | null
+    active: boolean | null
+    token: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -4009,6 +4013,8 @@ export namespace Prisma {
     phone: number
     password: number
     createAt: number
+    active: number
+    token: number
     _all: number
   }
 
@@ -4028,6 +4034,8 @@ export namespace Prisma {
     phone?: true
     password?: true
     createAt?: true
+    active?: true
+    token?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -4037,6 +4045,8 @@ export namespace Prisma {
     phone?: true
     password?: true
     createAt?: true
+    active?: true
+    token?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -4046,6 +4056,8 @@ export namespace Prisma {
     phone?: true
     password?: true
     createAt?: true
+    active?: true
+    token?: true
     _all?: true
   }
 
@@ -4142,6 +4154,8 @@ export namespace Prisma {
     phone: string | null
     password: string
     createAt: Date
+    active: boolean
+    token: string | null
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -4170,6 +4184,8 @@ export namespace Prisma {
     phone?: boolean
     password?: boolean
     createAt?: boolean
+    active?: boolean
+    token?: boolean
     balance?: boolean | user$balanceArgs<ExtArgs>
     expense?: boolean | user$expenseArgs<ExtArgs>
     income?: boolean | user$incomeArgs<ExtArgs>
@@ -4184,6 +4200,8 @@ export namespace Prisma {
     phone?: boolean
     password?: boolean
     createAt?: boolean
+    active?: boolean
+    token?: boolean
   }
 
   export type userInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4207,6 +4225,8 @@ export namespace Prisma {
       phone: string | null
       password: string
       createAt: Date
+      active: boolean
+      token: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -4585,6 +4605,8 @@ export namespace Prisma {
     readonly phone: FieldRef<"user", 'String'>
     readonly password: FieldRef<"user", 'String'>
     readonly createAt: FieldRef<"user", 'DateTime'>
+    readonly active: FieldRef<"user", 'Boolean'>
+    readonly token: FieldRef<"user", 'String'>
   }
     
 
@@ -5014,7 +5036,9 @@ export namespace Prisma {
     email: 'email',
     phone: 'phone',
     password: 'password',
-    createAt: 'createAt'
+    createAt: 'createAt',
+    active: 'active',
+    token: 'token'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -5066,6 +5090,13 @@ export namespace Prisma {
    * Reference to a field of type 'String'
    */
   export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
   /**
    * Deep Input Types
@@ -5268,6 +5299,8 @@ export namespace Prisma {
     phone?: StringNullableFilter<"user"> | string | null
     password?: StringFilter<"user"> | string
     createAt?: DateTimeFilter<"user"> | Date | string
+    active?: BoolFilter<"user"> | boolean
+    token?: StringNullableFilter<"user"> | string | null
     balance?: BalanceListRelationFilter
     expense?: ExpenseListRelationFilter
     income?: IncomeListRelationFilter
@@ -5280,6 +5313,8 @@ export namespace Prisma {
     phone?: SortOrderInput | SortOrder
     password?: SortOrder
     createAt?: SortOrder
+    active?: SortOrder
+    token?: SortOrderInput | SortOrder
     balance?: balanceOrderByRelationAggregateInput
     expense?: expenseOrderByRelationAggregateInput
     income?: incomeOrderByRelationAggregateInput
@@ -5295,6 +5330,8 @@ export namespace Prisma {
     phone?: StringNullableFilter<"user"> | string | null
     password?: StringFilter<"user"> | string
     createAt?: DateTimeFilter<"user"> | Date | string
+    active?: BoolFilter<"user"> | boolean
+    token?: StringNullableFilter<"user"> | string | null
     balance?: BalanceListRelationFilter
     expense?: ExpenseListRelationFilter
     income?: IncomeListRelationFilter
@@ -5307,6 +5344,8 @@ export namespace Prisma {
     phone?: SortOrderInput | SortOrder
     password?: SortOrder
     createAt?: SortOrder
+    active?: SortOrder
+    token?: SortOrderInput | SortOrder
     _count?: userCountOrderByAggregateInput
     _avg?: userAvgOrderByAggregateInput
     _max?: userMaxOrderByAggregateInput
@@ -5324,6 +5363,8 @@ export namespace Prisma {
     phone?: StringNullableWithAggregatesFilter<"user"> | string | null
     password?: StringWithAggregatesFilter<"user"> | string
     createAt?: DateTimeWithAggregatesFilter<"user"> | Date | string
+    active?: BoolWithAggregatesFilter<"user"> | boolean
+    token?: StringNullableWithAggregatesFilter<"user"> | string | null
   }
 
   export type balanceCreateInput = {
@@ -5509,6 +5550,8 @@ export namespace Prisma {
     phone?: string | null
     password: string
     createAt?: Date | string
+    active?: boolean
+    token?: string | null
     balance?: balanceCreateNestedManyWithoutUserInput
     expense?: expenseCreateNestedManyWithoutUserInput
     income?: incomeCreateNestedManyWithoutUserInput
@@ -5521,6 +5564,8 @@ export namespace Prisma {
     phone?: string | null
     password: string
     createAt?: Date | string
+    active?: boolean
+    token?: string | null
     balance?: balanceUncheckedCreateNestedManyWithoutUserInput
     expense?: expenseUncheckedCreateNestedManyWithoutUserInput
     income?: incomeUncheckedCreateNestedManyWithoutUserInput
@@ -5532,6 +5577,8 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    token?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: balanceUpdateManyWithoutUserNestedInput
     expense?: expenseUpdateManyWithoutUserNestedInput
     income?: incomeUpdateManyWithoutUserNestedInput
@@ -5544,6 +5591,8 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    token?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: balanceUncheckedUpdateManyWithoutUserNestedInput
     expense?: expenseUncheckedUpdateManyWithoutUserNestedInput
     income?: incomeUncheckedUpdateManyWithoutUserNestedInput
@@ -5556,6 +5605,8 @@ export namespace Prisma {
     phone?: string | null
     password: string
     createAt?: Date | string
+    active?: boolean
+    token?: string | null
   }
 
   export type userUpdateManyMutationInput = {
@@ -5564,6 +5615,8 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    token?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type userUncheckedUpdateManyInput = {
@@ -5573,6 +5626,8 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    token?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -5821,6 +5876,11 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type BalanceListRelationFilter = {
     every?: balanceWhereInput
     some?: balanceWhereInput
@@ -5863,6 +5923,8 @@ export namespace Prisma {
     phone?: SortOrder
     password?: SortOrder
     createAt?: SortOrder
+    active?: SortOrder
+    token?: SortOrder
   }
 
   export type userAvgOrderByAggregateInput = {
@@ -5876,6 +5938,8 @@ export namespace Prisma {
     phone?: SortOrder
     password?: SortOrder
     createAt?: SortOrder
+    active?: SortOrder
+    token?: SortOrder
   }
 
   export type userMinOrderByAggregateInput = {
@@ -5885,6 +5949,8 @@ export namespace Prisma {
     phone?: SortOrder
     password?: SortOrder
     createAt?: SortOrder
+    active?: SortOrder
+    token?: SortOrder
   }
 
   export type userSumOrderByAggregateInput = {
@@ -5906,6 +5972,14 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type userCreateNestedOneWithoutBalanceInput = {
@@ -6018,6 +6092,10 @@ export namespace Prisma {
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type balanceUpdateManyWithoutUserNestedInput = {
@@ -6228,6 +6306,11 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | null
@@ -6256,12 +6339,22 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type userCreateWithoutBalanceInput = {
     name: string
     email: string
     phone?: string | null
     password: string
     createAt?: Date | string
+    active?: boolean
+    token?: string | null
     expense?: expenseCreateNestedManyWithoutUserInput
     income?: incomeCreateNestedManyWithoutUserInput
   }
@@ -6273,6 +6366,8 @@ export namespace Prisma {
     phone?: string | null
     password: string
     createAt?: Date | string
+    active?: boolean
+    token?: string | null
     expense?: expenseUncheckedCreateNestedManyWithoutUserInput
     income?: incomeUncheckedCreateNestedManyWithoutUserInput
   }
@@ -6299,6 +6394,8 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    token?: NullableStringFieldUpdateOperationsInput | string | null
     expense?: expenseUpdateManyWithoutUserNestedInput
     income?: incomeUpdateManyWithoutUserNestedInput
   }
@@ -6310,6 +6407,8 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    token?: NullableStringFieldUpdateOperationsInput | string | null
     expense?: expenseUncheckedUpdateManyWithoutUserNestedInput
     income?: incomeUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -6320,6 +6419,8 @@ export namespace Prisma {
     phone?: string | null
     password: string
     createAt?: Date | string
+    active?: boolean
+    token?: string | null
     balance?: balanceCreateNestedManyWithoutUserInput
     income?: incomeCreateNestedManyWithoutUserInput
   }
@@ -6331,6 +6432,8 @@ export namespace Prisma {
     phone?: string | null
     password: string
     createAt?: Date | string
+    active?: boolean
+    token?: string | null
     balance?: balanceUncheckedCreateNestedManyWithoutUserInput
     income?: incomeUncheckedCreateNestedManyWithoutUserInput
   }
@@ -6357,6 +6460,8 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    token?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: balanceUpdateManyWithoutUserNestedInput
     income?: incomeUpdateManyWithoutUserNestedInput
   }
@@ -6368,6 +6473,8 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    token?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: balanceUncheckedUpdateManyWithoutUserNestedInput
     income?: incomeUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -6378,6 +6485,8 @@ export namespace Prisma {
     phone?: string | null
     password: string
     createAt?: Date | string
+    active?: boolean
+    token?: string | null
     balance?: balanceCreateNestedManyWithoutUserInput
     expense?: expenseCreateNestedManyWithoutUserInput
   }
@@ -6389,6 +6498,8 @@ export namespace Prisma {
     phone?: string | null
     password: string
     createAt?: Date | string
+    active?: boolean
+    token?: string | null
     balance?: balanceUncheckedCreateNestedManyWithoutUserInput
     expense?: expenseUncheckedCreateNestedManyWithoutUserInput
   }
@@ -6415,6 +6526,8 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    token?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: balanceUpdateManyWithoutUserNestedInput
     expense?: expenseUpdateManyWithoutUserNestedInput
   }
@@ -6426,6 +6539,8 @@ export namespace Prisma {
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    token?: NullableStringFieldUpdateOperationsInput | string | null
     balance?: balanceUncheckedUpdateManyWithoutUserNestedInput
     expense?: expenseUncheckedUpdateManyWithoutUserNestedInput
   }

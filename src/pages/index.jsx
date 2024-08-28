@@ -22,7 +22,7 @@ import { nepaliDateConveter } from "@/Methods/nepaliDate.js";
 
 import { toast } from 'react-toastify';
 import { useRouter } from "next/navigation.js";
-
+import { getCookie } from 'cookies-next';
 
 const style = {
   position: "absolute",
@@ -36,11 +36,20 @@ const style = {
   p: 4,
 };
 
-export default function Home() {
+export async function getServerSideProps({ req, res }) {
+  // Fetch the token cookie on the server side
+  const token = getCookie('token', { req, res }) || 'No cookie found';
+
+  return {
+    props: { token }, // Pass the token to the page component as a prop
+  };
+}
+export default function Home({ token }) {
   const [TostOpen, setTostOpen] = useState(false);
   const [TostMessage, setTostMessage] = useState("");
   const [formType, setFormType] = useState("");
   const [open, setOpen] = useState(false);
+  const [userData, setUserData] = useState([]);
   const [transaction, setTransactino] = useState([]);
   const router = useRouter();
   const handleOpen = (type) => {
@@ -54,6 +63,32 @@ export default function Home() {
     description: "",
   });
 
+  useEffect(() => {
+
+    if (token) {
+      getAuth();
+    }
+
+
+
+  }, [])
+  const getAuth = async () => {
+    try {
+      console.log("token=", token);
+      const response = await server.get(`/api/getUserData`);
+      if (response.status === 200) {
+        console.log(response.data);
+
+      } else {
+
+        console.log(response.data);
+      }
+
+    } catch (error) {
+
+      console.log("error", error);
+    }
+  }
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setIncome((prevIncome) => ({
@@ -320,9 +355,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <>
-        <Tost />
-        <Layout>
 
+        <Layout>
+          <div> <h1>Display Cookie on Frontend (SSR)</h1>
+            <p>Token: {token}</p></div>
           <div className="custom_card">
             <div className="custom_carddetails">
               <div className="custome_card_top">

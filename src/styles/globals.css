@@ -6,6 +6,9 @@
   margin: 0;
   padding: 0;
 }
+.box_shadow{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
 .list_show {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   display: flex;

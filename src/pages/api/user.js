@@ -4,39 +4,9 @@ import { userSchema, userLoginSchema } from "../validation/index.js";
 export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
-      let { email, password } = req.query;
-      const data = ({ email, password } = req.query);
-      // Handle login when both email and password are provided in query
-      if (email && password) {
-        // Validate the login data
-        const { error, value } = userLoginSchema.validate(data);
-        if (error) {
-          console.log("errpr");
-          return res.status(400).json({ message: error.message });
-        } else {
-          // Check if the user exists
-
-          const checkUser = await prisma.user.findFirst({
-            where: {
-              email: email,
-              password: password, // You should consider hashing passwords
-            },
-          });
 
 
-          if (checkUser) {
-            return res.status(200).json({
-              status: true,
-              message: "Login Successful",
-              data: value,
-            });
-          } else {
-            return res
-              .status(401)
-              .json({ status: false, message: "Invalid email or password" });
-          }
-        }
-      }
+
 
       // Handle registration if no email and password in query
       const { error, value } = userSchema.validate(req.body);
@@ -44,7 +14,7 @@ export default async function handler(req, res) {
       if (error) {
         return res.status(400).json({ message: error.message });
       } else {
-        const { name, email, phone, password } = req.body;
+        const { name, email, phone, password } = value;
 
         // Check if the user already exists
         const checkUser = await prisma.user.findUnique({
@@ -94,8 +64,54 @@ export default async function handler(req, res) {
         .json({ message: "Internal Server Error", data: error.message });
     }
   } else if (req.method === "GET") {
-    return res.status(200).json({ message: "Get Method" });
-  } else {
+    try {
+      const { userId } = req.query;
+      if (userId) {
+        const user = await prisma.user.findFirst({
+          where: {
+            id: parseInt(userId)
+          }
+        });
+        if (user) {
+          return res.status(200).json({ status: true, message: "User Data", user });
+        } else {
+          return res.status(404).json({ message: "No User Found!" }); // Use 404 for not found
+        }
+      } else {
+        return res.status(400).json({ message: "User ID is required" }); // Handle missing userId
+      }
+    } catch (error) {
+      console.error("Error in get user handler:", error); // Log the error for debugging
+      return res.status(500).json({ message: "Internal Server Error" }); // Use 500 for server error
+    }
+  } else if (req.method === "PUT") {
+    try {
+
+    } catch (error) {
+
+    }
+  } else if (req.method === "DELETE") {
+    try {
+      const userId = req.query;
+      const deactiveUser = await prisma.user.update({
+        where: {
+          id: userId
+        }, data: {
+          active: false,
+          token: null
+        }
+      });
+      if (deactiveUser) {
+        return res.status(200).json({ message: "Log out Successful" });
+      } else {
+        return res.status(404).json({ message: "Error Lou out !" });
+      }
+
+    } catch (error) {
+      return res.status(405).json({ message: "Method Not Allowed" });
+    }
+  }
+  else {
     return res.status(405).json({ message: "Method Not Allowed" });
   }
 }
